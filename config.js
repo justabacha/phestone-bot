@@ -2,7 +2,7 @@ module.exports = {
   // Command prefix (e.g., !help, /ping)
   prefix: '!',
   // Owner numbers (include country code, no '+')
-  ownerNumbers: ['254768946798'],
+  ownerNumbers: ['254708671172'],
   // Bot name (shown in help)
   botName: 'PHESTONE BOT',
   // Branding line (used in vault and other places)
