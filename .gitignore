@@ -1,0 +1,8 @@
+# .gitignore
+node_modules/
+session/
+.env
+settings.json
+*.log
+temp_*
+.restart_flag

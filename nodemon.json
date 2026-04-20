@@ -1,0 +1,20 @@
+{
+  "ignore": [
+    "session/*",
+    "settings.json",
+    "temp_*",
+    ".restart_flag",
+    "*.log",
+    "node_modules"
+  ],
+  "watch": [
+    "index.js",
+    "handler.js",
+    "config.js",
+    "commands/",
+    "core/"
+  ],
+  "delay": 1000,
+  "restartable": "rs",
+  "signal": "SIGTERM"
+}
