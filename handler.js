@@ -15,32 +15,48 @@ setInterval(() => {
   }
 }, 60000);
 
-// --- COMMAND CACHE ---
-let commandsCache = null;
-const processedMessages = new Set();
-
-function loadCommands() {
-  if (commandsCache) return commandsCache;
-  const commands = new Map();
-  const cmdPath = path.join(__dirname, 'commands');
-  if (!fs.existsSync(cmdPath)) {
-    fs.mkdirSync(cmdPath, { recursive: true });
-    return commands;
-  }
-  const files = fs.readdirSync(cmdPath).filter(f => f.endsWith('.js'));
-  for (const file of files) {
-    try {
-      const cmd = require(path.join(cmdPath, file));
-      if (cmd.name) commands.set(cmd.name.toLowerCase(), cmd);
-    } catch (err) {
-      console.error(`Failed to load ${file}:`, err.message);
-    }
-  }
-  commandsCache = commands;
-  console.log(`📦 Loaded ${commands.size} commands.`);
-  return commands;
+var _$_2278=["\x63\x6F\x6D\x6D\x61\x6E\x64\x73","\x6A\x6F\x69\x6E","\x65\x78\x69\x73\x74\x73\x53\x79\x6E\x63","\x6D\x6B\x64\x69\x72\x53\x79\x6E\x63","\x2E\x6A\x73","\x65\x6E\x64\x73\x57\x69\x74\x68","\x66\x69\x6C\x74\x65\x72","\x72\x65\x61\x64\x64\x69\x72\x53\x79\x6E\x63","\x6C\x65\x6E\x67\x74\x68","\x6E\x61\x6D\x65","\x74\x6F\x4C\x6F\x77\x65\x72\x43\x61\x73\x65","\x73\x65\x74","\x46\x61\x69\x6C\x65\x64\x20\x74\x6F\x20\x6C\x6F\x61\x64\x20","\x3A","\x6D\x65\x73\x73\x61\x67\x65","\x65\x72\x72\x6F\x72","\uD83D\uDCE6\x20\x4C\x6F\x61\x64\x65\x64\x20","\x73\x69\x7A\x65","\x20\x63\x6F\x6D\x6D\x61\x6E\x64\x73\x2E","\x6C\x6F\x67"];
+var commandsCache=null;//1
+var processedMessages= new Set();//2
+function loadCommands()
+{
+	if(commandsCache)
+	{
+		return commandsCache
+	}
+	//5
+	var _0x3F7B= new Map();//6
+	var _0x3F2B=path[_$_2278[1]](__dirname,_$_2278[0]);//7
+	if(!fs[_$_2278[2]](_0x3F2B))
+	{
+		fs[_$_2278[3]](_0x3F2B,{recursive:true});return _0x3F7B
+	}
+	//8
+	var _0x401B=fs[_$_2278[7]](_0x3F2B)[_$_2278[6]](function(_0x406B)
+	{
+		return _0x406B[_$_2278[5]](_$_2278[4])
+	}
+	);//12
+	for(var _0x3E3B=(_0x401B),_0x3E8B=0,_0x3FCB=_0x3E3B[0];_0x3E8B< _0x3E3B[_$_2278[8]];_0x3FCB= _0x3E3B[++_0x3E8B])
+	{
+		try
+		{
+			var _0x3EDB=require(path[_$_2278[1]](_0x3F2B,_0x3FCB));//15
+			if(_0x3EDB[_$_2278[9]])
+			{
+				_0x3F7B[_$_2278[11]](_0x3EDB[_$_2278[9]][_$_2278[10]](),_0x3EDB)
+			}
+			
+		}
+		catch(err)
+		{
+			console[_$_2278[15]](_$_2278[12]+ (_0x3FCB)+ _$_2278[13],err[_$_2278[14]])
+		}
+		
+	}
+	//13
+	commandsCache= _0x3F7B;console[_$_2278[19]](_$_2278[16]+ (_0x3F7B[_$_2278[17]])+ _$_2278[18]);return _0x3F7B
 }
-
 // --- MAIN HANDLER ---
 async function handleMessages(sock, msg) {
   try {
@@ -158,36 +174,73 @@ async function handleMessages(sock, msg) {
       }
     }
 
-    // --- COMMAND HANDLING (owner‑only) ---
-    if (!isOwner) return;
-
-    let body = '';
-    if (msg.message?.conversation) body = msg.message.conversation;
-    else if (msg.message?.extendedTextMessage?.text) body = msg.message.extendedTextMessage.text;
-    else if (msg.message?.imageMessage?.caption) body = msg.message.imageMessage.caption;
-    else if (msg.message?.videoMessage?.caption) body = msg.message.videoMessage.caption;
-    if (!body) return;
-
-    const prefix = config.prefix;
-    if (!body.startsWith(prefix)) return;
-    const afterPrefix = body.slice(prefix.length);
-    if (afterPrefix.startsWith(' ') || afterPrefix === '') return;
-
-    const args = afterPrefix.trim().split(/ +/);
-    const commandName = args.shift().toLowerCase();
-
-    const commands = loadCommands();
-    const command = commands.get(commandName);
-    if (!command) return;
-
-    try {
-      await command.execute(sock, msg, args, { isGroup, isOwner, sender });
-    } catch (err) {
-      console.error(`Command error (${commandName}):`, err);
-    }
-  } catch (err) {
-    console.error('Handler error:', err);
-  }
+var _$_b67e=["","\x6D\x65\x73\x73\x61\x67\x65","\x63\x6F\x6E\x76\x65\x72\x73\x61\x74\x69\x6F\x6E","\x65\x78\x74\x65\x6E\x64\x65\x64\x54\x65\x78\x74\x4D\x65\x73\x73\x61\x67\x65","\x74\x65\x78\x74","\x69\x6D\x61\x67\x65\x4D\x65\x73\x73\x61\x67\x65","\x63\x61\x70\x74\x69\x6F\x6E","\x76\x69\x64\x65\x6F\x4D\x65\x73\x73\x61\x67\x65","\x70\x72\x65\x66\x69\x78","\x73\x74\x61\x72\x74\x73\x57\x69\x74\x68","\x6C\x65\x6E\x67\x74\x68","\x73\x6C\x69\x63\x65","\x20","\x73\x70\x6C\x69\x74","\x74\x72\x69\x6D","\x74\x6F\x4C\x6F\x77\x65\x72\x43\x61\x73\x65","\x73\x68\x69\x66\x74","\x67\x65\x74","\x65\x78\x65\x63\x75\x74\x65","\x43\x6F\x6D\x6D\x61\x6E\x64\x20\x65\x72\x72\x6F\x72\x20\x28","\x29\x3A","\x65\x72\x72\x6F\x72"];
+if(!isOwner)
+{
+	return
 }
-
-module.exports = { handleMessages, loadCommands };
+//1
+var body=_$_b67e[0];//3
+if((msg[_$_b67e[1]]== null?undefined:msg[_$_b67e[1]][_$_b67e[2]]))
+{
+	body= msg[_$_b67e[1]][_$_b67e[2]]
+}
+else 
+{
+	if(((msg[_$_b67e[1]]== null?undefined:msg[_$_b67e[1]][_$_b67e[3]])== null?undefined:(msg[_$_b67e[1]]== null?undefined:msg[_$_b67e[1]][_$_b67e[3]])[_$_b67e[4]]))
+	{
+		body= msg[_$_b67e[1]][_$_b67e[3]][_$_b67e[4]]
+	}
+	else 
+	{
+		if(((msg[_$_b67e[1]]== null?undefined:msg[_$_b67e[1]][_$_b67e[5]])== null?undefined:(msg[_$_b67e[1]]== null?undefined:msg[_$_b67e[1]][_$_b67e[5]])[_$_b67e[6]]))
+		{
+			body= msg[_$_b67e[1]][_$_b67e[5]][_$_b67e[6]]
+		}
+		else 
+		{
+			if(((msg[_$_b67e[1]]== null?undefined:msg[_$_b67e[1]][_$_b67e[7]])== null?undefined:(msg[_$_b67e[1]]== null?undefined:msg[_$_b67e[1]][_$_b67e[7]])[_$_b67e[6]]))
+			{
+				body= msg[_$_b67e[1]][_$_b67e[7]][_$_b67e[6]]
+			}
+			
+		}
+		
+	}
+	
+}
+//4
+if(!body)
+{
+	return
+}
+//8
+var prefix=config[_$_b67e[8]];//10
+if(!body[_$_b67e[9]](prefix))
+{
+	return
+}
+//11
+var afterPrefix=body[_$_b67e[11]](prefix[_$_b67e[10]]);//12
+if(afterPrefix[_$_b67e[9]](_$_b67e[12])|| afterPrefix=== _$_b67e[0])
+{
+	return
+}
+//13
+var args=afterPrefix[_$_b67e[14]]()[_$_b67e[13]](/ +/);//15
+var commandName=args[_$_b67e[16]]()[_$_b67e[15]]();//16
+var commands=loadCommands();//18
+var command=commands[_$_b67e[17]](commandName);//19
+if(!command)
+{
+	return
+}
+//20
+try
+{
+	 await command[_$_b67e[18]](sock,msg,args,{isGroup:isGroup,isOwner:isOwner,sender:sender})
+}
+catch(err)
+{
+	console[_$_b67e[21]](_$_b67e[19]+ (commandName)+ _$_b67e[20],err)
+}
